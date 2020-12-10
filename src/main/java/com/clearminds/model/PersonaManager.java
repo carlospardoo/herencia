@@ -1,5 +1,6 @@
 package com.clearminds.model;
 
+import com.clearminds.excepcion.InstanceException;
 import com.clearminds.impl.ServicioPersonaArchivos;
 import com.clearminds.impl.ServicioPersonaBDD;
 import com.clearminds.interfaces.ServicioPersona;
@@ -7,8 +8,24 @@ import com.clearminds.interfaces.ServicioPersona;
 public class PersonaManager {
 	private ServicioPersona serv;
 	
-	public PersonaManager(){
-		this.serv = new ServicioPersonaArchivos();
+	public PersonaManager() throws InstanceException{
+		Class<?> clase;
+		try {
+			clase = Class.forName("com.clearminds.impl.ServicioPersonaBDD");
+			serv=(ServicioPersona)clase.newInstance();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			throw new InstanceException("Error al obtener una instancia de ServicioPersona");
+		}
+		
+
+		//this.serv = new ServicioPersonaArchivos();
 	}
 	
 	public void insertarPersona(Persona persona){
