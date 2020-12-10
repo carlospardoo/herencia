@@ -11,7 +11,7 @@ public class PersonaManager {
 	public PersonaManager() throws InstanceException{
 		Class<?> clase;
 		try {
-			clase = Class.forName("com.clearminds.impl.ServicioPersonaBDD");
+			clase = Class.forName("com.clearminds.impl.ServicioPersonaHola");
 			serv=(ServicioPersona)clase.newInstance();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
